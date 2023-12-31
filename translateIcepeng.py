@@ -1,27 +1,30 @@
-import pytesseract as pt
-import numpy as np
+import sys
 from translate import Translator
 from dataJson import data_list
-# print(data_list)
 list_of_items = []
 for item in data_list:
     descriptions = item.get("descriptions")
     if isinstance(descriptions,list):
         for description in descriptions:
             list_of_items.append(description)
-
+failed = False
 output = []
-print(len(list_of_items))
 for idx,item in enumerate(list_of_items):
     try:
         translator_to_english = Translator(from_lang = "ko",to_lang = "en")
         translated_individual_text = translator_to_english.translate(item)
+        if "MYMEMORY WARNING" in translated_individual_text:
+            print("ran out of translations")
+            failed = True
+            break 
         print(idx)
         output.append(translated_individual_text)
     except Exception as e:
         print(f'Error translating: {e}')
         output.append(None)
 
+if failed:
+    sys.exit()
 
 for original, translated in zip(list_of_items, output):
     print(f"Original Text: {original}")

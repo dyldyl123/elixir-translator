@@ -1,7 +1,6 @@
 import pytesseract as pt
 import numpy as np
 from PIL import Image
-from translate import Translator
 import cv2
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
