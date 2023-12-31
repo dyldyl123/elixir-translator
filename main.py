@@ -6,13 +6,13 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 # print(data_list)
 list_of_items = []
-for item in data_list:
-    descriptions = item.get("descriptions")
-    if isinstance(descriptions,list):
-        for description in descriptions:
-            list_of_items.append(description)
+# for item in data_list:
+#     descriptions = item.get("descriptions")
+#     if isinstance(descriptions,list):
+#         for description in descriptions:
+#             list_of_items.append(description)
 pt.pytesseract.tesseract_cmd = '/opt/homebrew/bin/tesseract'  # Replace with the path from the 'which tesseract' command
-img_path = '/Users/dylanfitzmaurice/Desktop/left.png'
+img_path = '/Users/dylanfitzmaurice/Desktop/test.png'
 image = cv2.imread(img_path)
 hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
 
@@ -66,43 +66,43 @@ print("White Text:")
 text_white = text_white.replace("Iwill", "I will")
 print(text_white)
 
-text_file_path = 'translations.txt'
-read_data_tuples = []
-korean_phrases_translated = []
-with open(text_file_path, 'r', encoding='utf-8') as text_file:
-    for line in text_file:
-        original_text, translated_text = line.strip().split('\t')
-        read_data_tuples.append((original_text, translated_text))
+# text_file_path = 'translations.txt'
+# read_data_tuples = []
+# korean_phrases_translated = []
+# with open(text_file_path, 'r', encoding='utf-8') as text_file:
+#     for line in text_file:
+#         original_text, translated_text = line.strip().split('\t')
+#         read_data_tuples.append((original_text, translated_text))
 
-# Print the read data
-for original, translated in read_data_tuples:
-    korean_phrases_translated.append(translated)
-    print(f"Original Text: {original}")
-    print(f"Translated Text (English): {translated}\n")
-
-
-english_phrases = [text_white]
+# # Print the read data
+# for original, translated in read_data_tuples:
+#     korean_phrases_translated.append(translated)
+#     print(f"Original Text: {original}")
+#     print(f"Translated Text (English): {translated}\n")
 
 
+# english_phrases = [text_white]
 
-# # Sample Korean phrases translated to English
-# korean_phrases_translated = ["안녕하세요, 어떻게 지내세요?", "당신의 이름은 무엇인가요?", "안녕!"]
 
-# Vectorize English and translated phrases using TF-IDF
-vectorizer = TfidfVectorizer()
-english_vectors = vectorizer.fit_transform(english_phrases)
-translated_vectors = vectorizer.transform(korean_phrases_translated)
 
-# Calculate cosine similarity between English and translated vectors
-similarity_matrix = cosine_similarity(english_vectors, translated_vectors)
+# # # Sample Korean phrases translated to English
+# # korean_phrases_translated = ["안녕하세요, 어떻게 지내세요?", "당신의 이름은 무엇인가요?", "안녕!"]
 
-# Find the best match for each English phrase
-matches = [korean_phrases_translated[similarity.argmax()] for similarity in similarity_matrix]
+# # Vectorize English and translated phrases using TF-IDF
+# vectorizer = TfidfVectorizer()
+# english_vectors = vectorizer.fit_transform(english_phrases)
+# translated_vectors = vectorizer.transform(korean_phrases_translated)
 
-# Print the matches
-for english, match in zip(english_phrases, matches):
-    print(f"English: {english}")
-    print(f"Match (Korean): {match}\n")
-    korean_result = [item[0] for item in read_data_tuples if match in item]
-    print(f"korean result: {korean_result}")
+# # Calculate cosine similarity between English and translated vectors
+# similarity_matrix = cosine_similarity(english_vectors, translated_vectors)
+
+# # Find the best match for each English phrase
+# matches = [korean_phrases_translated[similarity.argmax()] for similarity in similarity_matrix]
+
+# # Print the matches
+# for english, match in zip(english_phrases, matches):
+#     print(f"English: {english}")
+#     print(f"Match (Korean): {match}\n")
+#     korean_result = [item[0] for item in read_data_tuples if match in item]
+#     print(f"korean result: {korean_result}")
     
