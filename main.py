@@ -4,13 +4,8 @@ from PIL import Image
 import cv2
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
-# print(data_list)
 list_of_items = []
-# for item in data_list:
-#     descriptions = item.get("descriptions")
-#     if isinstance(descriptions,list):
-#         for description in descriptions:
-#             list_of_items.append(description)
+
 pt.pytesseract.tesseract_cmd = '/opt/homebrew/bin/tesseract'  # Replace with the path from the 'which tesseract' command
 img_path = '/Users/dylanfitzmaurice/Desktop/test.png'
 image = cv2.imread(img_path)
@@ -65,6 +60,12 @@ text_white = pt.image_to_string(Image.fromarray(gray_white_text))
 print("White Text:")
 text_white = text_white.replace("Iwill", "I will")
 print(text_white)
+
+
+# cv2.imshow('White Text', gray_white_text)
+# cv2.imshow("yellow text",gray_yellow_text)
+# cv2.waitKey(0)
+# cv2.destroyAllWindows()
 
 # text_file_path = 'translations.txt'
 # read_data_tuples = []
